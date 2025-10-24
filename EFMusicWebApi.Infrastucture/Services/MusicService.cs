@@ -16,16 +16,32 @@ namespace EFMusicWebApi.Infrastucture.Services
             var artists = _context.Artists.ToList();
 
             if (string.IsNullOrEmpty(name))
-                return artists;
+                return artists ?? artists;
 
             return [_context.Artists.FirstOrDefault(s => s.Name == name)];
         }
         public List<Song>? GetSongs(string title = "")
         {
+            var songs = _context.Songs.ToList();
+
             if (string.IsNullOrEmpty(title))
-                return [.. _context.Songs];
+                return songs ?? songs;
 
             return [_context.Songs.FirstOrDefault(s => s.Title == title)];
+        }
+
+        public void AddArtist(Artist artist)
+        {
+            _context.Artists.Add(artist);
+
+            _context.SaveChanges();
+        }
+
+        public void AddSong(Song song)
+        {
+            _context.Songs.Add(song);
+
+            _context.SaveChanges();
         }
     }
 }

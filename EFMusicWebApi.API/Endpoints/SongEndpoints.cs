@@ -13,6 +13,7 @@ namespace EFMusicWebApi.API.Endpoints
 
             endpoints.MapGet("/", Get);
             endpoints.MapGet("/search", Search);
+            endpoints.MapPost("/add", Add);
         }
 
         static List<Song> Get(MusicService musicService)
@@ -25,6 +26,11 @@ namespace EFMusicWebApi.API.Endpoints
 
             var result = musicService.GetSongs(title).First();
             return result == null ? TypedResults.NotFound() : TypedResults.Ok(result);
+        }
+
+        static void Add(MusicService musicService, Song song)
+        {
+            musicService.AddSong(song);
         }
     }
 }
