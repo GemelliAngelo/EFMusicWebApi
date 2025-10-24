@@ -1,5 +1,4 @@
-﻿using EFMusicWebApi.Infrastucture;
-using EFMusicWebApi.Infrastucture.Services;
+﻿using EFMusicWebApi.Infrastucture.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MusicWebApi.App.Models;
 
@@ -15,6 +14,7 @@ namespace EFMusicWebApi.API.Endpoints
             endpoints.MapGet("/search", Search);
             endpoints.MapPost("/add", Add);
             endpoints.MapPut("/update", Update);
+            endpoints.MapDelete("/delete", Delete);
         }
 
         static List<Song> Get(MusicService musicService)
@@ -37,6 +37,11 @@ namespace EFMusicWebApi.API.Endpoints
         static void Update(MusicService musicService, int id, Song song)
         {
             musicService.UpdateSong(id, song);
+        }
+
+        static void Delete(MusicService musicService, int id)
+        {
+            musicService.DeleteSong(id);
         }
     }
 }

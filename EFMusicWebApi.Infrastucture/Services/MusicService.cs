@@ -76,5 +76,15 @@ namespace EFMusicWebApi.Infrastucture.Services
 
             _context.SaveChanges();
         }
+
+        public void DeleteArtist(int id)
+        {
+            _context.Artists.Where(s => s.Id == id).ExecuteDelete();
+        }
+
+        public void DeleteSong(int id)
+        {
+            _context.Songs.Where(s => s.Id == id).ExecuteDelete();
+        }
     }
 }

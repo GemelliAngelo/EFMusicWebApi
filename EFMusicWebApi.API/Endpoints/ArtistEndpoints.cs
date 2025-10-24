@@ -13,7 +13,8 @@ namespace EFMusicWebApi.API.Endpoints
             endpoints.MapGet("/", Get);
             endpoints.MapGet("/search", Search);
             endpoints.MapPost("/add", Add);
-            endpoints.MapPost("/update", Update);
+            endpoints.MapPut("/update", Update);
+            endpoints.MapDelete("/delete", Delete);
         }
 
         static List<Artist> Get(MusicService musicService)
@@ -23,8 +24,8 @@ namespace EFMusicWebApi.API.Endpoints
 
         static Results<Ok<Artist>, NotFound, ProblemHttpResult> Search(MusicService musicService, string name)
         {
-
             var result = musicService.GetArtists(name)?.First();
+
             return result == null ? TypedResults.NotFound() : TypedResults.Ok(result);
         }
 
@@ -36,6 +37,11 @@ namespace EFMusicWebApi.API.Endpoints
         static void Update(MusicService musicService, int id, Artist artist)
         {
             musicService.UpdateArtist(id, artist);
+        }
+
+        static void Delete(MusicService musicService, int id)
+        {
+            musicService.DeleteArtist(id);
         }
     }
 }
