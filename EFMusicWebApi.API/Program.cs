@@ -3,6 +3,7 @@ using EFMusicWebApi.API.Endpoints;
 using EFMusicWebApi.Infrastucture;
 using EFMusicWebApi.Infrastucture.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace EFMusicWebApi.API
 {
@@ -11,6 +12,8 @@ namespace EFMusicWebApi.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
             // Add services to the container.
             builder.Services.AddAuthorization();

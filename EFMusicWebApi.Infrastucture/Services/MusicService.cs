@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MusicWebApi.App.Models;
 
 namespace EFMusicWebApi.Infrastucture.Services
@@ -6,9 +7,11 @@ namespace EFMusicWebApi.Infrastucture.Services
     public class MusicService
     {
         private readonly MusicApiDbContext _context;
+        private readonly ILogger _logger;
 
-        public MusicService(MusicApiDbContext context)
+        public MusicService(MusicApiDbContext context, ILogger logger)
         {
+            _logger = logger;
             _context = context;
         }
 
