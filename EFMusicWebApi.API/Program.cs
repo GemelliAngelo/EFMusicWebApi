@@ -1,5 +1,7 @@
 
+using EFMusicWebApi.API.Endpoints;
 using EFMusicWebApi.Infrastucture;
+using EFMusicWebApi.Infrastucture.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFMusicWebApi.API
@@ -13,13 +15,15 @@ namespace EFMusicWebApi.API
             // Add services to the container.
             builder.Services.AddAuthorization();
 
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddEndpointsApiExplorer();
-
             builder.Services.AddControllers();
-            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<MusicService>();
 
             builder.Services.AddDbContext<MusicApiDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+            builder.Services.AddEndpointsApiExplorer();
+
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -35,6 +39,9 @@ namespace EFMusicWebApi.API
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.MapSongEndpoints();
+            app.MapArtistEndpoints();
 
             app.Run();
         }

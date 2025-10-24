@@ -1,0 +1,29 @@
+﻿using EFMusicWebApi.Infrastucture.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
+using MusicWebApi.App.Models;
+
+namespace EFMusicWebApi.API.Endpoints
+{
+    public static class ArtistEndpoints
+    {
+        public static void MapArtistEndpoints(this IEndpointRouteBuilder app)
+        {
+            var endpoints = app.MapGroup("api/artists");
+
+            endpoints.MapGet("/", Get);
+            endpoints.MapGet("/search", Search);
+        }
+
+        static List<Artist> Get(MusicService musicService)
+        {
+            return musicService.GetArtists();
+        }
+
+        static Results<Ok<Artist>, NotFound, ProblemHttpResult> Search(MusicService musicService, string name)
+        {
+
+            var result = musicService.GetArtists(name).First();
+            return result == null ? TypedResults.NotFound() : TypedResults.Ok(result);
+        }
+    }
+}
