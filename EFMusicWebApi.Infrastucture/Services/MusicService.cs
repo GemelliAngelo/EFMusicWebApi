@@ -1,4 +1,5 @@
-﻿using MusicWebApi.App.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicWebApi.App.Models;
 
 namespace EFMusicWebApi.Infrastucture.Services
 {
@@ -40,6 +41,38 @@ namespace EFMusicWebApi.Infrastucture.Services
         public void AddSong(Song song)
         {
             _context.Songs.Add(song);
+
+            _context.SaveChanges();
+        }
+
+        public void UpdateArtist(int id, Artist newArtist)
+        {
+            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
+
+            if (artist != null)
+            {
+                artist.Name = newArtist.Name;
+
+                artist.Age = newArtist.Age;
+            }
+
+            //_context.Entry(newArtist).State = EntityState.Modified;
+
+            _context.SaveChanges();
+        }
+
+        public void UpdateSong(int id, Song newSong)
+        {
+            var song = _context.Songs.FirstOrDefault(s => s.Id == id);
+
+            if (song != null)
+            {
+                song.Title = newSong.Title;
+
+                song.AlbumName = newSong.AlbumName;
+            }
+
+            //_context.Entry(newSong).State = EntityState.Modified;
 
             _context.SaveChanges();
         }

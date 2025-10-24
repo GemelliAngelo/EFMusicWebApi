@@ -13,6 +13,7 @@ namespace EFMusicWebApi.API.Endpoints
             endpoints.MapGet("/", Get);
             endpoints.MapGet("/search", Search);
             endpoints.MapPost("/add", Add);
+            endpoints.MapPost("/update", Update);
         }
 
         static List<Artist> Get(MusicService musicService)
@@ -30,6 +31,11 @@ namespace EFMusicWebApi.API.Endpoints
         static void Add(MusicService musicService, Artist artist)
         {
             musicService.AddArtist(artist);
+        }
+
+        static void Update(MusicService musicService, int id, Artist artist)
+        {
+            musicService.UpdateArtist(id, artist);
         }
     }
 }
