@@ -1,0 +1,9 @@
+﻿namespace MusicWebApi.App.Models
+{
+    public class Artist
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required short Age { get; set; }
+    }
+}

@@ -1,0 +1,6 @@
+@EFMusicWebApi.API_HostAddress = http://localhost:5037
+
+GET {{EFMusicWebApi.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
