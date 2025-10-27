@@ -9,7 +9,7 @@ namespace EFMusicWebApi.Infrastucture.Services
         private readonly MusicApiDbContext _context;
         private readonly ILogger _logger;
 
-        public MusicService(MusicApiDbContext context, ILogger logger)
+        public MusicService(MusicApiDbContext context, ILogger<MusicService> logger)
         {
             _logger = logger;
             _context = context;
